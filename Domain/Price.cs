@@ -11,7 +11,7 @@ namespace Domain
 
         [Required]
         [InverseProperty("Prices")]
-        [ForeignKey("Week_Id")]
+        [ForeignKey("WeekId")]
         public Week Week { get; set; }
 
         public int WeekId { get; set; }

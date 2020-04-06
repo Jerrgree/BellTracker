@@ -49,7 +49,7 @@ namespace Data
                 await _dbContext.SaveChangesAsync();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception ex) // better error handling in the future
             {
                 return false;
             }
