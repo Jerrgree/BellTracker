@@ -1,7 +1,9 @@
 ﻿using Common;
 using Domain;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Data
 {
@@ -14,19 +16,44 @@ namespace Data
             _dbContext = context;
         }
 
-        public Week GetWeek(string year, int week)
+        public async Task<Week> GetWeek(string year, int week)
+        {
+
+            return await _dbContext
+                    .Weeks
+                    .Include(x => x.Prices)
+                    .FirstOrDefaultAsync(x => x.Year == year && x.WeekNumber == week);
+        }
+
+        public async Task<Week> GetOrCreateWeek(string year, int week)
+        {
+            var value = await GetWeek(year, week);
+
+            if (value == null)
+            {
+                value = new Week()
+                {
+                    Year = year,
+                    WeekNumber = week
+                };
+                await _dbContext.Weeks.AddAsync(value);
+                await _dbContext.SaveChangesAsync();
+            }
+
+            return value;
+        }
+
+        public async Task<bool> AddPriceInstance(Price price)
         {
             try
             {
-                return _dbContext
-                        .Weeks
-                        .Include(x => x.Prices)
-                        .FirstOrDefault(x => x.Year == year && x.WeekNumber == week);
+                await _dbContext.Prices.AddAsync(price);
+                await _dbContext.SaveChangesAsync();
+                return true;
             }
-            catch (System.Exception ex)
+            catch(Exception ex)
             {
-
-                throw;
+                return false;
             }
         }
     }
