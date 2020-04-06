@@ -2,22 +2,19 @@
 
 namespace Domain
 {
-    public class Domain : DbContext
+    public class BellContext : DbContext
     {
-        public Domain() : base()
+        public BellContext() : base()
         {
 
         }
-        public Domain(DbContextOptions options) : base(options) 
+        public BellContext(DbContextOptions options) : base(options) 
         {
         }
 
         public virtual DbSet<Week> Weeks { get; set; } 
 
         public virtual DbSet<Price> Prices { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

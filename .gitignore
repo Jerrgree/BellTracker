@@ -340,4 +340,6 @@ ASALocalRun/
 healthchecksdb
 
 #ignore Migrations
+/BellTracker/secrets.json
 Domain/Migrations/*
+/BellTracker/secret.json

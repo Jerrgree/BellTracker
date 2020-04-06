@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BellTracker.Data;
+using Common;
+using Data;
+using Domain;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BellTracker.Data;
 
 namespace BellTracker
 {
@@ -29,6 +27,9 @@ namespace BellTracker
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            
+            services.AddDbContext<BellContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
+            services.AddScoped<IBellDataStore, BellDataStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
