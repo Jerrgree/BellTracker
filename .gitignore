@@ -340,4 +340,4 @@ ASALocalRun/
 healthchecksdb
 
 #ignore Migrations
-./Domain/Migrations/*
+Domain/Migrations/*
