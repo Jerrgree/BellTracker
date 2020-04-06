@@ -6,13 +6,13 @@ namespace Domain
     {
         public BellContext() : base()
         {
-
         }
-        public BellContext(DbContextOptions options) : base(options) 
+
+        public BellContext(DbContextOptions options) : base(options)
         {
         }
 
-        public virtual DbSet<Week> Weeks { get; set; } 
+        public virtual DbSet<Week> Weeks { get; set; }
 
         public virtual DbSet<Price> Prices { get; set; }
 
@@ -37,7 +37,7 @@ namespace Domain
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Price_Week");
 
-                entity.HasIndex(e => new { e.WeekId, e.IsMorning }).IsUnique(true);
+                entity.HasIndex(e => new { e.WeekId, e.IsMorning, e.DayOfWeek }).IsUnique(true);
             });
         }
     }
