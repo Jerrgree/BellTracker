@@ -1,4 +1,3 @@
-using BellTracker.Data;
 using Common;
 using Data;
 using Domain;
@@ -26,7 +25,6 @@ namespace BellTracker
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
 
             services.AddDbContext<BellContext>(options => options.UseSqlServer(Configuration["BellContext"]));
             services.AddScoped<IBellDataStore, BellDataStore>();

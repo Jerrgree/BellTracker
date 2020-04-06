@@ -2,7 +2,6 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Data
@@ -18,7 +17,6 @@ namespace Data
 
         public async Task<Week> GetWeek(string year, int week)
         {
-
             return await _dbContext
                     .Weeks
                     .Include(x => x.Prices)
@@ -51,7 +49,7 @@ namespace Data
                 await _dbContext.SaveChangesAsync();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
