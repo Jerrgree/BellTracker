@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System;
 
 namespace Domain
 {
@@ -17,7 +17,7 @@ namespace Domain
         public int WeekId { get; set; }
 
         [Required]
-        public int DayOfWeek { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
 
         [Required]
         public bool IsMorning { get; set; }
