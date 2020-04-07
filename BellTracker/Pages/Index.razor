@@ -6,7 +6,24 @@
 
 @inherits ChartViewModel
 
-<ChartJsLineChart @ref="Chart"
-                  Config="@LineConfig"
-                  Width="600"
-                  Height="300" />
+<div class="row">
+    <div class="col col-sm-12">
+        <ChartJsLineChart @ref="Chart"
+                          Config="@LineConfig"
+                          Width="600"
+                          Height="300" />
+    </div>
+</div>
+<div class="row">
+    <div class="col col-sm-12 col-md-5">
+        <select @bind="InputDayOfWeek">
+            <option value="@DayOfWeek.Sunday">Sunday</option>
+            <option value="@DayOfWeek.Monday">Monday</option>
+            <option value="@DayOfWeek.Tuesday">Tuesday</option>
+            <option value="@DayOfWeek.Wednesday">Wednesday</option>
+            <option value="@DayOfWeek.Thursday">Thursday</option>
+            <option value="@DayOfWeek.Friday">Friday</option>
+            <option value="@DayOfWeek.Saturday">Saturday</option>
+        </select>
+    </div>
+</div>

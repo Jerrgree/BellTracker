@@ -49,12 +49,30 @@ namespace BellTracker.ViewModels
             "Sat PM",
         };
 
+        #region Page State
+
+        public DayOfWeek InputDayOfWeek { get; set; }
+
+        public int InputAmount { get; set; }
+
+        public bool InputIsMorning { get; set; }
+
+        public bool CanInput =>
+            CurrentWeek != null && (CurrentWeek.Prices.Any(x => x.DayOfWeek == InputDayOfWeek && x.IsMorning == InputIsMorning));
+
+        #endregion Page State
+
         protected override async Task OnInitializedAsync()
         {
             // Initialize this or ChartJS blow up
             LineConfig = new LineConfig();
             var currentDate = new ParsedDate(DateTime.Now);
             CurrentWeek = await BellDataStore.GetOrCreateWeek(currentDate.Year, currentDate.Week);
+
+            InputDayOfWeek = currentDate.DayOfWeek;
+            InputAmount = 0;
+            InputIsMorning = currentDate.IsMorning;
+
             SetupChart();
 
             await base.OnInitializedAsync();
@@ -70,7 +88,8 @@ namespace BellTracker.ViewModels
                     Title = new OptionsTitle()
                     {
                         Display = true,
-                        Text = "Stonk"
+                        Text = "Stonk",
+                        FontSize = 20
                     },
                     Tooltips = new Tooltips()
                     {
@@ -85,7 +104,8 @@ namespace BellTracker.ViewModels
                             {
                                 ScaleLabel = new ScaleLabel()
                                 {
-                                    LabelString = "Cost"
+                                    LabelString = "Cost",
+                                    FontSize = 20
                                 },
                                 Ticks = new LinearCartesianTicks()
                                 {
@@ -100,7 +120,8 @@ namespace BellTracker.ViewModels
                             {
                                 ScaleLabel = new ScaleLabel()
                                 {
-                                    LabelString = "Time"
+                                    LabelString = "Time",
+                                    FontSize = 20
                                 },
                                 Ticks = new CategoryTicks()
                                 {
