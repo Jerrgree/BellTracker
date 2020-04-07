@@ -57,7 +57,7 @@ namespace BellTracker.ViewModels
 
         public bool InputIsMorning { get; set; }
 
-        public bool CanInput =>
+        public bool CannotInput =>
             CurrentWeek != null && (CurrentWeek.Prices.Any(x => x.DayOfWeek == InputDayOfWeek && x.IsMorning == InputIsMorning));
 
         #endregion Page State

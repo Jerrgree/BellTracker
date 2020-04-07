@@ -14,6 +14,11 @@
                           Height="300" />
     </div>
 </div>
+<div class="row" hidden="@(!CannotInput)">
+    <div class="col col-sm-12">
+        <p>Cannot add as this date is already accounted for</p>
+    </div>
+</div>
 <div class="row">
     <div class="col col-sm-12 col-md-5">
         <select @bind="InputDayOfWeek">
