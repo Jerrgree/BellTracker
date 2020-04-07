@@ -184,7 +184,8 @@ namespace BellTracker.ViewModels
                 var newPrice = new Price()
                 {
                     Amount = InputAmount,
-                    IsMorning = InputIsMorning,
+                    // Sunday has a single value, we'll always say its morning
+                    IsMorning = InputDayOfWeek == DayOfWeek.Sunday ? true : InputIsMorning,
                     DayOfWeek = InputDayOfWeek,
                     WeekId = CurrentWeek.Id
                 };
