@@ -30,7 +30,7 @@ namespace BellTracker.ViewModels
 
         protected ChartJsLineChart Chart { get; set; }
 
-        protected LineDataset<Point> data { get; set; }
+        protected LineDataset<Int32Wrapper> data { get; set; }
 
         private List<string> AxisLabels => new List<string>()
         {
@@ -104,9 +104,8 @@ namespace BellTracker.ViewModels
                                 },
                                 Ticks = new CategoryTicks()
                                 {
-                                    Labels = AxisLabels,
                                     Min = "Sun",
-                                    Max = "Sat PM"
+                                    Max = "Sat PM",
                                 }
                             }
                         }
@@ -119,7 +118,9 @@ namespace BellTracker.ViewModels
                 }
             };
 
-            data = new LineDataset<Point>()
+            LineConfig.Data.Labels = AxisLabels;
+
+            data = new LineDataset<Int32Wrapper>()
             {
                 BackgroundColor = ColorUtil.ColorString(0, 255, 0, 1.0),
                 BorderColor = ColorUtil.ColorString(0, 0, 255, 1.0),
@@ -132,11 +133,7 @@ namespace BellTracker.ViewModels
                 SteppedLine = SteppedLine.False,
             };
 
-            data.AddRange(CurrentWeek.Prices.Select(x => new Point()
-            {
-                X = GetPlotPoint(x),
-                Y = x.Amount
-            }));
+            data.AddRange(CurrentWeek.Prices.Select(x => x.Amount).Wrap());
 
             LineConfig.Data.Datasets.Add(data);
 
