@@ -1,9 +1,16 @@
 ﻿@page "/"
 
+@using ChartJs.Blazor.Charts
+
 @using ViewModels
 
 @inherits ChartViewModel
 
-<h1>Hello, world!</h1>
+@if (Chart != null)
+{
 
-Welcome to your new app.
+    <ChartJsLineChart @ref="Chart"
+                      Config="@LineConfig"
+                      Width="600"
+                      Height="300" />
+}
