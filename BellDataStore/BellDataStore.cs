@@ -2,7 +2,6 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Data
@@ -20,7 +19,7 @@ namespace Data
         {
             return await _dbContext
                     .Weeks
-                    .Include(x => x.Prices.OrderBy(p => p.DayOfWeek).ThenBy(p => p.IsMorning))
+                    .Include(x => x.Prices)
                     .FirstOrDefaultAsync(x => x.Year == year && x.WeekNumber == week);
         }
 
