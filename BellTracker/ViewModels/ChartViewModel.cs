@@ -58,7 +58,9 @@ namespace BellTracker.ViewModels
         public bool InputIsMorning { get; set; }
 
         public bool CannotInput =>
-            CurrentWeek != null && (CurrentWeek.Prices.Any(x => x.DayOfWeek == InputDayOfWeek && x.IsMorning == InputIsMorning));
+            CurrentWeek != null && (CurrentWeek.Prices.Any(x => x.DayOfWeek == InputDayOfWeek
+            && (x.DayOfWeek == DayOfWeek.Sunday
+             || x.IsMorning == InputIsMorning)));
 
         #endregion Page State
 
@@ -139,6 +141,8 @@ namespace BellTracker.ViewModels
                 }
             };
 
+            // Doesn't seem to be a way to tie labels to specific axis values. Will need to research further
+            // For now ensure everything is in order
             LineConfig.Data.Labels = AxisLabels;
 
             data = new LineDataset<Int32Wrapper>()
@@ -173,9 +177,27 @@ namespace BellTracker.ViewModels
             return value;
         }
 
-        protected async Task UpdateChart()
+        protected async Task AddItem()
         {
-            await Chart.Update();
+            if (!CannotInput && InputAmount > 0)
+            {
+                var newPrice = new Price()
+                {
+                    Amount = InputAmount,
+                    IsMorning = InputIsMorning,
+                    DayOfWeek = InputDayOfWeek,
+                    WeekId = CurrentWeek.Id
+                };
+
+                var isSuccess = await BellDataStore.AddPriceInstance(newPrice);
+
+                if (isSuccess)
+                {
+                    data.Add(newPrice.Amount);
+
+                    await Chart.Update();
+                }
+            }
         }
     }
 }

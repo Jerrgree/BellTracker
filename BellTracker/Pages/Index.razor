@@ -20,8 +20,14 @@
     </div>
 </div>
 <div class="row">
-    <div class="col col-sm-12 col-md-5">
-        <select @bind="InputDayOfWeek">
+    <div class="col col-sm-12 col-md-2">
+        <input class="form-check-input" type="checkbox" @bind="InputIsMorning" id="chkIsMorning" />
+        <label class="form-check-label" for="chkIsMorning">
+            Morning?
+        </label>
+    </div>
+    <div class="col col-sm-12 col-md-4">
+        <select class="form-control" @bind="InputDayOfWeek">
             <option value="@DayOfWeek.Sunday">Sunday</option>
             <option value="@DayOfWeek.Monday">Monday</option>
             <option value="@DayOfWeek.Tuesday">Tuesday</option>
@@ -30,5 +36,13 @@
             <option value="@DayOfWeek.Friday">Friday</option>
             <option value="@DayOfWeek.Saturday">Saturday</option>
         </select>
+    </div>
+    <div class="col col-sm-12 col-md-2">
+        <input class="form-control" type="number" @bind="InputAmount" />
+    </div>
+    <div class="col col-sm-12 col-md-4">
+        <button type="button" class="btn btn-primary" @onclick="AddItem" disabled="@CannotInput">
+            Add
+        </button>
     </div>
 </div>
