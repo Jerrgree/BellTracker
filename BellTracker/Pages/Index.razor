@@ -6,11 +6,7 @@
 
 @inherits ChartViewModel
 
-@if (Chart != null)
-{
-
-    <ChartJsLineChart @ref="Chart"
-                      Config="@LineConfig"
-                      Width="600"
-                      Height="300" />
-}
+<ChartJsLineChart @ref="Chart"
+                  Config="@LineConfig"
+                  Width="600"
+                  Height="300" />

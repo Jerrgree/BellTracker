@@ -51,14 +51,16 @@ namespace BellTracker.ViewModels
 
         protected override async Task OnInitializedAsync()
         {
+            // Initialize this or ChartJS blow up
+            LineConfig = new LineConfig();
             var currentDate = new ParsedDate(DateTime.Now);
             CurrentWeek = await BellDataStore.GetOrCreateWeek(currentDate.Year, currentDate.Week);
-            SetupChart(CurrentWeek);
+            SetupChart();
 
             await base.OnInitializedAsync();
         }
 
-        protected void SetupChart(Week current)
+        protected void SetupChart()
         {
             LineConfig = new LineConfig()
             {
